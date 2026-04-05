@@ -1,1 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Induction Register</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #111;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .title-block p {
+      margin: 6px 0 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-dark {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-light {
+      background: #fff;
+      color: #111;
+      border: 1px solid #ddd;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: #666;
+      font-weight: normal;
+    }
+
+    .card .value {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 14px;
+      border: 1px solid #d8d8d8;
+      border-radius: 10px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .table-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th {
+      background: #111;
+      color: #fff;
+      text-align: left;
+      padding: 14px;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    tr:hover {
+      background: #fafafa;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .approved {
+      background: #e8f7ea;
+      color: #1d7a34;
+    }
+
+    .pending {
+      background: #fff3cd;
+      color: #8a6d1d;
+    }
+
+    .expired {
+      background: #fde8e8;
+      color: #a12626;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .title-block h1 {
+        font-size: 24px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .actions {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="title-block">
+        <h1>Induction Register</h1>
+        <p>PROJECT NAME HERE</p>
+      </div>
+
+      <div class="actions">
+        <a href="site.html" class="btn btn-light">← Back to Site Manager</a>
+        <a href="PASTE_YOUR_GOOGLE_SHEET_LINK_HERE" target="_blank" class="btn btn-dark">Open Full Register</a>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="card">
+        <h3>Total Inducted</h3>
+        <div class="value">12</div>
+      </div>
+      <div class="card">
+        <h3>Approved</h3>
+        <div class="value">10</div>
+      </div>
+      <div class="card">
+        <h3>Pending</h3>
+        <div class="value">1</div>
+      </div>
+      <div class="card">
+        <h3>Expired / Review</h3>
+        <div class="value">1</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search name, company or trade..." onkeyup="filterTable()">
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-wrap">
+        <table id="inductionTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Trade</th>
+              <th>Date</th>
+              <th>Site</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John Smith</td>
+              <td>ABC Plumbing</td>
+              <td>Plumbing</td>
+              <td>06 Apr 2026</td>
+              <td>Caltex D'Aguilar</td>
+              <td><span class="status approved">Approved</span></td>
+            </tr>
+            <tr>
+              <td>Michael Brown</td>
+              <td>Red Dirt Civil</td>
+              <td>Civil</td>
+              <td>05 Apr 2026</td>
+              <td>Caltex D'Aguilar</td>
+              <td><span class="status approved">Approved</span></td>
+            </tr>
+            <tr>
+              <td>Sarah Lee</td>
+              <td>SPG</td>
+              <td>Pipework</td>
+              <td>04 Apr 2026</td>
+              <td>Caltex D'Aguilar</td>
+              <td><span class="status pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>David Jones</td>
+              <td>Northside Electrical</td>
+              <td>Electrical</td>
+              <td>28 Mar 2026</td>
+              <td>Caltex D'Aguilar</td>
+              <td><span class="status expired">Review</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      This page is a clean site view. Use “Open Full Register” for the live Google Sheet.
+    </div>
+
+  </div>
+
+  <script>
+    function filterTable() {
+      const input = document.getElementById("searchInput");
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById("inductionTable");
+      const tr = table.getElementsByTagName("tr");
+
+      for (let i = 1; i < tr.length; i++) {
+        let rowText = tr[i].textContent || tr[i].innerText;
+        tr[i].style.display = rowText.toLowerCase().includes(filter) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>
