@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 14px;
+}
+
+th {
+  background: #111;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background: #f7f7f7;
+}
+
+#table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+}
