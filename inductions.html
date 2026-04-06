@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Induction Register</title>
-
   <style>
     * {
       box-sizing: border-box;
@@ -13,68 +12,35 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, #1f2937 0%, #111827 30%, #0f172a 100%);
-      color: #111;
+      background: #f3f4f6;
+      color: #111827;
     }
 
     .wrap {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 20px;
     }
 
-    .hero {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(6px);
-      border-radius: 20px;
-      padding: 28px;
-      color: #fff;
-      margin-bottom: 22px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .hero-top {
+    .topbar {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
+      margin-bottom: 20px;
     }
 
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: 34px;
-      line-height: 1.1;
+    .title h1 {
+      margin: 0 0 6px;
+      font-size: 42px;
+      line-height: 1.05;
     }
 
-    .hero p {
+    .title p {
       margin: 0;
-      max-width: 700px;
-      color: rgba(255, 255, 255, 0.82);
-      line-height: 1.5;
-      font-size: 15px;
-    }
-
-    .status-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
+      color: #6b7280;
+      font-size: 18px;
     }
 
     .actions {
@@ -85,141 +51,138 @@
 
     .btn {
       display: inline-block;
-      padding: 12px 16px;
-      border-radius: 12px;
+      padding: 14px 18px;
+      border-radius: 14px;
       text-decoration: none;
       font-weight: 700;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-      white-space: nowrap;
+      font-size: 16px;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      opacity: 0.96;
-    }
-
-    .btn-primary {
-      background: #f59e0b;
+    .btn-light {
+      background: #e5e7eb;
       color: #111827;
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+    .btn-dark {
+      background: #111111;
+      color: #ffffff;
     }
 
     .panel {
-      background: #f8fafc;
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-      margin-bottom: 20px;
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      margin-bottom: 18px;
     }
 
     .panel-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
-      padding: 6px 6px 16px;
+      margin-bottom: 16px;
     }
 
     .panel-head h2 {
       margin: 0;
-      font-size: 22px;
-      color: #111827;
+      font-size: 24px;
     }
 
     .panel-head p {
-      margin: 6px 0 0;
+      margin: 4px 0 0;
       color: #6b7280;
-      font-size: 14px;
     }
 
-    .register-frame {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid #e5e7eb;
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
 
-    iframe {
-      display: block;
-      width: 100%;
-      height: 76vh;
-      min-height: 620px;
-      border: 0;
-      background: #fff;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .info-card {
-      background: rgba(255, 255, 255, 0.92);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    }
-
-    .info-card h3 {
-      margin: 0 0 10px;
+    .search-row input {
+      flex: 1 1 320px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
       font-size: 16px;
-      color: #111827;
+      outline: none;
     }
 
-    .info-card p {
-      margin: 0;
+    .meta {
       color: #6b7280;
-      line-height: 1.5;
       font-size: 14px;
+      margin-bottom: 12px;
     }
 
-    .footer-note {
-      text-align: center;
-      color: rgba(255, 255, 255, 0.68);
-      font-size: 13px;
-      padding: 4px 0 14px;
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
     }
 
-    @media (max-width: 900px) {
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      iframe {
-        height: 70vh;
-        min-height: 520px;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+      background: #fff;
     }
 
-    @media (max-width: 640px) {
+    thead th {
+      background: #111827;
+      color: #fff;
+      text-align: left;
+      padding: 14px 14px;
+      font-size: 14px;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+    }
+
+    tbody td {
+      padding: 14px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 15px;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    .empty {
+      padding: 20px;
+      color: #6b7280;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .loading {
+      padding: 24px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 700px) {
       .wrap {
         padding: 14px;
       }
 
-      .hero {
-        padding: 20px;
-        border-radius: 16px;
+      .title h1 {
+        font-size: 32px;
       }
 
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .panel {
-        padding: 12px;
-        border-radius: 16px;
-      }
-
-      .panel-head {
-        padding: 4px 4px 12px;
+      .title p {
+        font-size: 16px;
       }
 
       .btn {
@@ -230,89 +193,185 @@
       .actions {
         width: 100%;
       }
-
-      .actions a {
-        flex: 1 1 100%;
-      }
-
-      iframe {
-        height: 68vh;
-        min-height: 480px;
-      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-
-    <section class="hero">
-      <div class="hero-top">
-        <div>
-          <h1>Induction Register</h1>
-          <p>
-            Live published register for site inductions. Use this page for a cleaner
-            front-end view while the Google Sheet remains the backend source.
-          </p>
-
-          <div class="status-row">
-            <div class="pill">Live Register</div>
-            <div class="pill">Mobile Friendly</div>
-            <div class="pill">Linked to Google Sheet</div>
-          </div>
-        </div>
-
-        <div class="actions">
-          <a class="btn btn-secondary" href="index.html">← Back to Hub</a>
-          <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml" target="_blank">
-            Open Full Register
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head">
-        <div>
-          <h2>Register View</h2>
-          <p>Embedded live sheet for quick access on desktop and mobile.</p>
-        </div>
+    <div class="topbar">
+      <div class="title">
+        <h1>Induction Register</h1>
+        <p>Clean live register view</p>
       </div>
 
-      <div class="register-frame">
-        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml"></iframe>
+      <div class="actions">
+        <a class="btn btn-light" href="index.html">← Back to Hub</a>
+        <a
+          class="btn btn-dark"
+          href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml"
+          target="_blank"
+        >
+          Open Full Register
+        </a>
       </div>
-    </section>
-
-    <section class="info-grid">
-      <div class="info-card">
-        <h3>What this page is for</h3>
-        <p>
-          A cleaner front-end page for inductions so users are not dumped straight into
-          a raw spreadsheet link.
-        </p>
-      </div>
-
-      <div class="info-card">
-        <h3>Best use</h3>
-        <p>
-          Use this for managers, office staff, or quick checks. Later you can swap the
-          embedded sheet for a proper filtered dashboard.
-        </p>
-      </div>
-
-      <div class="info-card">
-        <h3>Next upgrade</h3>
-        <p>
-          Pull the CSV into cards or a table so it feels like a real product instead of
-          a Google Sheet inside a frame.
-        </p>
-      </div>
-    </section>
-
-    <div class="footer-note">
-      Construction site access hub
     </div>
 
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Live Register</h2>
+          <p>Showing published sheet data in your own UI</p>
+        </div>
+        <span class="tag">Live CSV View</span>
+      </div>
+
+      <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Search by name, company, mobile or email" />
+      </div>
+
+      <div class="meta" id="metaText">Loading register...</div>
+
+      <div class="table-wrap">
+        <div id="tableContainer" class="loading">Loading data...</div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pub?gid=0&single=true&output=csv";
+
+    const searchInput = document.getElementById("searchInput");
+    const tableContainer = document.getElementById("tableContainer");
+    const metaText = document.getElementById("metaText");
+
+    let allRows = [];
+    let headers = [];
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            cell += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          row.push(cell.trim());
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(cell.trim());
+          if (row.some(item => item !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+
+      if (cell.length || row.length) {
+        row.push(cell.trim());
+        if (row.some(item => item !== "")) rows.push(row);
+      }
+
+      return rows;
+    }
+
+    function cleanRows(rows) {
+      if (!rows.length) return { headers: [], data: [] };
+
+      const rawHeaders = rows[0].map(h => h.trim());
+      const data = rows.slice(1).filter(row =>
+        row.some(cell => String(cell || "").trim() !== "")
+      );
+
+      return {
+        headers: rawHeaders,
+        data
+      };
+    }
+
+    function renderTable(filteredRows) {
+      if (!headers.length) {
+        tableContainer.innerHTML = '<div class="empty">No headers found.</div>';
+        return;
+      }
+
+      if (!filteredRows.length) {
+        tableContainer.innerHTML = '<div class="empty">No matching results.</div>';
+        return;
+      }
+
+      const visibleColumns = headers
+        .map((header, index) => ({ header, index }))
+        .filter(col => col.header && col.header !== "");
+
+      let html = "<table><thead><tr>";
+      visibleColumns.forEach(col => {
+        html += `<th>${escapeHtml(col.header)}</th>`;
+      });
+      html += "</tr></thead><tbody>";
+
+      filteredRows.forEach(row => {
+        html += "<tr>";
+        visibleColumns.forEach(col => {
+          const value = row[col.index] || "";
+          html += `<td>${escapeHtml(value)}</td>`;
+        });
+        html += "</tr>";
+      });
+
+      html += "</tbody></table>";
+      tableContainer.innerHTML = html;
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function applyFilter() {
+      const q = searchInput.value.trim().toLowerCase();
+
+      const filtered = allRows.filter(row =>
+        row.some(cell => String(cell || "").toLowerCase().includes(q))
+      );
+
+      metaText.textContent = `${filtered.length} record${filtered.length === 1 ? "" : "s"} shown`;
+      renderTable(filtered);
+    }
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(text => {
+        const parsed = parseCSV(text);
+        const cleaned = cleanRows(parsed);
+
+        headers = cleaned.headers;
+        allRows = cleaned.data;
+
+        metaText.textContent = `${allRows.length} records loaded`;
+        renderTable(allRows);
+      })
+      .catch(() => {
+        metaText.textContent = "Could not load register data";
+        tableContainer.innerHTML = '<div class="empty">Failed to load the published CSV.</div>';
+      });
+
+    searchInput.addEventListener("input", applyFilter);
+  </script>
 </body>
 </html>
