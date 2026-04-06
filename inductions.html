@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Induction Register</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -12,103 +13,306 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      background:
+        radial-gradient(circle at top left, #1f2937 0%, #111827 30%, #0f172a 100%);
       color: #111;
     }
 
     .wrap {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 24px;
     }
 
-    .topbar {
+    .hero {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      padding: 28px;
+      color: #fff;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-top {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .title h1 {
-      margin: 0 0 6px;
-      font-size: 30px;
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.1;
     }
 
-    .title p {
+    .hero p {
       margin: 0;
-      color: #666;
+      max-width: 700px;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .status-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
     }
 
     .actions {
       display: flex;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 10px;
     }
 
     .btn {
       display: inline-block;
       padding: 12px 16px;
-      border-radius: 10px;
-      background: #111;
-      color: #fff;
+      border-radius: 12px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+      white-space: nowrap;
     }
 
-    .btn-light {
-      background: #e9ecef;
-      color: #111;
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .btn-primary {
+      background: #f59e0b;
+      color: #111827;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.16);
     }
 
     .panel {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      margin-bottom: 20px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 6px 6px 16px;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #111827;
+    }
+
+    .panel-head p {
+      margin: 6px 0 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .register-frame {
       background: #fff;
       border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
     }
 
     iframe {
+      display: block;
       width: 100%;
-      height: 78vh;
+      height: 76vh;
+      min-height: 620px;
       border: 0;
-      border-radius: 12px;
       background: #fff;
     }
 
-    @media (max-width: 700px) {
-      .title h1 {
-        font-size: 24px;
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .info-card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #111827;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: #6b7280;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 13px;
+      padding: 4px 0 14px;
+    }
+
+    @media (max-width: 900px) {
+      .info-grid {
+        grid-template-columns: 1fr;
       }
 
       iframe {
-        height: 72vh;
+        height: 70vh;
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 14px;
       }
 
-      .wrap {
-        padding: 16px;
+      .hero {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .panel {
+        padding: 12px;
+        border-radius: 16px;
+      }
+
+      .panel-head {
+        padding: 4px 4px 12px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .actions a {
+        flex: 1 1 100%;
+      }
+
+      iframe {
+        height: 68vh;
+        min-height: 480px;
       }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar">
-      <div class="title">
-        <h1>Induction Register</h1>
-        <p>Live published register view</p>
+
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <h1>Induction Register</h1>
+          <p>
+            Live published register for site inductions. Use this page for a cleaner
+            front-end view while the Google Sheet remains the backend source.
+          </p>
+
+          <div class="status-row">
+            <div class="pill">Live Register</div>
+            <div class="pill">Mobile Friendly</div>
+            <div class="pill">Linked to Google Sheet</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-secondary" href="index.html">← Back to Hub</a>
+          <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml" target="_blank">
+            Open Full Register
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Register View</h2>
+          <p>Embedded live sheet for quick access on desktop and mobile.</p>
+        </div>
       </div>
 
-      <div class="actions">
-        <a class="btn btn-light" href="index.html">← Back to Hub</a>
-        <a class="btn" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml" target="_blank">Open Full Register</a>
+      <div class="register-frame">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml"></iframe>
       </div>
+    </section>
+
+    <section class="info-grid">
+      <div class="info-card">
+        <h3>What this page is for</h3>
+        <p>
+          A cleaner front-end page for inductions so users are not dumped straight into
+          a raw spreadsheet link.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Best use</h3>
+        <p>
+          Use this for managers, office staff, or quick checks. Later you can swap the
+          embedded sheet for a proper filtered dashboard.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Next upgrade</h3>
+        <p>
+          Pull the CSV into cards or a table so it feels like a real product instead of
+          a Google Sheet inside a frame.
+        </p>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      Construction site access hub
     </div>
 
-    <div class="panel">
-      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRT9SYjuRCNvmZDbM0SRjP5xQz9mrm7NVbVzXabep8t0JCNFISYo6x4c41qrJO83XWnYvoBj7LjDE2D/pubhtml"></iframe>
-    </div>
   </div>
 </body>
 </html>
